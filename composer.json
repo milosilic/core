@@ -1,0 +1,17 @@
+{
+    "name": "bgw/core",
+    "description": "This is core module of every web project developed in Bitgear",
+    "authors": [
+        {
+            "name": "ila",
+            "email": "milos.ilic@bitgear.rs"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": { "Core\\": "src/" }
+    }
+
+}
