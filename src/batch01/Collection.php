@@ -1,44 +1,36 @@
 <?php
 declare(strict_types = 1);
 
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 10.3.17.
- * Time: 16.48
- */
+namespace bgw\batch01;
+
+/* listing 13.05 */
 abstract class Collection implements \Iterator
 {
-    protected $dofact = null;
+    protected $mapper;
     protected $total = 0;
     protected $raw = [];
 
-    private $result;
     private $pointer = 0;
     private $objects = [];
 
-    // Collection
-
-    public function __construct(array $raw = [], DomainObjectFactory $dofact = null)
+    public function __construct(array $raw = [], Mapper $mapper = null)
     {
-        if (count($raw) && ! is_null($dofact)) {
-            $this->raw = $raw;
-            $this->total = count($raw);
+        $this->raw = $raw;
+        $this->total = count($raw);
+
+        if (count($raw) && is_null($mapper)) {
+            throw new AppException("need Mapper to generate objects");
         }
 
-        $this->dofact = $dofact;
+        $this->mapper = $mapper;
     }
-
-    // ...
-
-    /* /listing 13.33 */
 
     public function add(DomainObject $object)
     {
         $class = $this->targetClass();
 
-        if (! ($object instanceof $class )) {
-            throw new Exception("This is a {$class} collection");
+        if (! ($object instanceof $class)) {
+            throw new AppException("This is a {$class} collection");
         }
 
         $this->notifyAccess();
@@ -53,13 +45,8 @@ abstract class Collection implements \Iterator
         // deliberately left blank!
     }
 
-    /* listing 13.34 */
-
-    private function getRow(int $num)
+    private function getRow($num)
     {
-        // ...
-
-        /* /listing 13.34 */
         $this->notifyAccess();
 
         if ($num >= $this->total || $num < 0) {
@@ -70,14 +57,12 @@ abstract class Collection implements \Iterator
             return $this->objects[$num];
         }
 
-        /* listing 13.34 */
         if (isset($this->raw[$num])) {
-            $this->objects[$num] = $this->dofact->createObject($this->raw[$num]);
+            $this->objects[$num] = $this->mapper->createObject($this->raw[$num]);
 
             return $this->objects[$num];
         }
     }
-    /* /listing 13.34 */
 
     public function rewind()
     {
@@ -98,11 +83,9 @@ abstract class Collection implements \Iterator
     {
         $row = $this->getRow($this->pointer);
 
-        if ($row) {
+        if (! is_null($row)) {
             $this->pointer++;
         }
-
-        return $row;
     }
 
     public function valid()

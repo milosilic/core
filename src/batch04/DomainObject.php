@@ -1,12 +1,9 @@
 <?php
 declare(strict_types = 1);
 
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 10.3.17.
- * Time: 12.55
- */
+namespace bgw\batch04;
+
+/* listing 13.23 */
 abstract class DomainObject
 {
     private $id;

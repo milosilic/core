@@ -1,12 +1,11 @@
 <?php
-namespace bgw;
+declare(strict_types = 1);
 
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 14.3.17.
- * Time: 19.03
- */
+namespace bgw\batch01;
+
+use bgw\batch10\TableCreator;
+use bgw\batch06\Conf;
+
 class Runner
 {
     public static function run()
@@ -19,11 +18,11 @@ class Runner
         $venue = new Venue(-1, "The Hatey Lounge");
         $mapper->insert($venue);
 
-        /* listing 13.03 */
+/* listing 13.03 */
         $mapper = new VenueMapper();
         $venue = $mapper->find(2);
         print_r($venue);
-        /* /listing 13.03 */
+/* /listing 13.03 */
     }
 
     public static function run2()
@@ -31,7 +30,7 @@ class Runner
         // set up conf
         self::setUp();
 
-        /* listing 13.04 */
+/* listing 13.04 */
         $mapper = new VenueMapper();
         $venue = new Venue(-1, "The Likey Lounge");
         // add the object to the database
@@ -46,14 +45,14 @@ class Runner
         // once again, go back to the database to prove it worked
         $venue = $mapper->find($venue->getId());
         print_r($venue);
-        /* /listing 13.04 */
+/* /listing 13.04 */
     }
 
     public static function run3()
     {
         Registry::reset();
 
-        /* listing 13.07 */
+/* listing 13.07 */
         $reg = Registry::instance();
 
         $collection = $reg->getVenueCollection();
@@ -64,14 +63,14 @@ class Runner
         foreach ($collection as $venue) {
             print $venue->getName() . "\n";
         }
-        /* /listing 13.07 */
+/* /listing 13.07 */
     }
 
     public static function run4()
     {
         Registry::reset();
 
-        /* listing 13.09 */
+/* listing 13.09 */
         $genvencoll = new GenVenueCollection();
         $genvencoll->add(new Venue(-1, "Loud and Thumping"));
         $genvencoll->add(new Venue(-1, "Eeezy"));
@@ -82,7 +81,7 @@ class Runner
         foreach ($gen as $wrapper) {
             print_r($wrapper);
         }
-        /* /listing 13.09 */
+/* /listing 13.09 */
     }
 
     public static function run5()
@@ -135,6 +134,4 @@ class Runner
         $pdo->query("CREATE TABLE event ( id INTEGER PRIMARY KEY
             $autoincrement, space INTEGER, start long, duration int, name text )");
     }
-
-
 }

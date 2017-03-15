@@ -1,14 +1,11 @@
 <?php
 declare(strict_types = 1);
-//only in this file strict_types are being checked
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 10.3.17.
- * Time: 13.00
- */
+
+namespace bgw\batch04;
+
 class ObjectWatcher
 {
+/* listing 13.22 */
 
     // ObjectWatcher
 
@@ -16,11 +13,9 @@ class ObjectWatcher
     private $dirty = [];
     private $new = [];
     private $delete = []; // unused in this example
-    /**
-     * @var ObjectWatcher
-     */
     private static $instance = null;
 
+/* /listing 13.22 */
 
     private function __construct()
     {
@@ -47,7 +42,7 @@ class ObjectWatcher
         return $key;
     }
 
-    public static function add(DomainObject $obj):DomainObject
+    public static function add(DomainObject $obj)
     {
         $inst = self::instance();
         $inst->all[$inst->globalKey($obj)] = $obj;
@@ -67,10 +62,11 @@ class ObjectWatcher
         return null;
     }
 
+/* listing 13.22 */
     public static function addDelete(DomainObject $obj)
     {
         $inst = self::instance();
-        $inst->delete[$inst->globalKey($obj)] = $obj;
+        $inst->delete[$self->globalKey($obj)] = $obj;
     }
 
     public static function addDirty(DomainObject $obj)
@@ -117,5 +113,5 @@ class ObjectWatcher
         $this->dirty = [];
         $this->new = [];
     }
-    /* /listing 13.22 */
+/* /listing 13.22 */
 }

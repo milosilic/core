@@ -1,21 +1,20 @@
 <?php
 declare(strict_types = 1);
 
-//namespace popp\ch13\batch04;
-namespace bgw;
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 10.3.17.
- * Time: 17.15
- */
+namespace bgw\batch01;
+
+use bgw\batch06\Conf;
+use bgw\batch06\Request;
+use bgw\batch06\ApplicationHelper;
+
 class Registry
 {
-    private static $instance = null;
+    private static $instance=null;
     private $request = null;
     private $conf = null;
     private $commands = null;
     private $pdo = null;
+    private $applicationHelper = null;
 
     private function __construct()
     {
@@ -52,8 +51,11 @@ class Registry
 
     public function getApplicationHelper(): ApplicationHelper
     {
-        // could persist an instance if needed
-        return new ApplicationHelper();
+        if (is_null($this->applicationHelper)) {
+            $this->applicationHelper = new ApplicationHelper();
+        }
+
+        return $this->applicationHelper;
     }
 
     public function setConf(Conf $conf)
@@ -83,7 +85,6 @@ class Registry
     public function getDSN(): string
     {
         $conf = $this->getConf();
-
         return $conf->get("dsn");
     }
 
@@ -102,7 +103,9 @@ class Registry
 
         return $this->pdo;
     }
-/*
+
+/* listing 13.10 */
+
     public function getVenueMapper(): VenueMapper
     {
         return new VenueMapper();
@@ -132,5 +135,6 @@ class Registry
     {
         return new EventCollection();
     }
-    */
+
+/* /listing 13.10 */
 }

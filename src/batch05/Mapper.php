@@ -1,13 +1,10 @@
 <?php
 declare(strict_types = 1);
 
+namespace bgw\batch05;
 
-/**
- * Created by PhpStorm.
- * User: ila
- * Date: 10.3.17.
- * Time: 16.47
- */
+use bgw\batch04\Registry;
+
 abstract class Mapper
 {
     protected $pdo = null;

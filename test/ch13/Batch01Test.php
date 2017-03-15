@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace bgw;
+namespace bgw\batch01;
 
 require_once("vendor/autoload.php");
 

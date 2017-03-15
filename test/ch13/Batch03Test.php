@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace popp\ch13\batch03;
+namespace bgw\batch03;
 
 require_once("vendor/autoload.php");
 
