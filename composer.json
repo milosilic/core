@@ -11,7 +11,12 @@
         "php": ">=7.0"
     },
     "autoload": {
-        "psr-4": { "Core\\": "src/" }
+        "psr-4": {
+            "popp\\": ["src/"],
+            "bgw\\": ["src/"],
+            "popp\\tools\\": ["toolsrc/"],
+            "popp\\test\\": ["test/"]
+        }
     }
 
 }
