@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 
 //namespace popp\ch13\batch04;
+namespace bgw;
 /**
  * Created by PhpStorm.
  * User: ila
